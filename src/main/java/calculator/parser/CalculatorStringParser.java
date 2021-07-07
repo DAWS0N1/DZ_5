@@ -13,7 +13,7 @@ public class CalculatorStringParser {
         this.parser = parser;
     }
 
-    public Operation parse(String args) {
+    public Operation parse(String args) throws ArithmeticException{
         final String[] parserArgs = parser.parse(args);
         List<String> secondArgs = new ArrayList<>();
         firstQueue(parserArgs, secondArgs);
@@ -47,7 +47,7 @@ public class CalculatorStringParser {
         return result;
     }
 
-    private void firstQueue(String[] parserArgs, List<String> secondArgs) {
+    private void firstQueue(String[] parserArgs, List<String> secondArgs) throws ArithmeticException {
         for (int i = 1; i < parserArgs.length; i += 2) {
             String arg = parserArgs[i];
             if (isOperation(arg)) {
@@ -56,7 +56,8 @@ public class CalculatorStringParser {
                 if (arg.equals("*"))
                     secondArgs.add(String.valueOf(new MultiplyOperation(prevNumber, nextNumber).operate()));
                 else if (arg.equals("/"))
-                    secondArgs.add(String.valueOf(new DivideOperation(prevNumber, nextNumber).operate()));
+                        secondArgs.add(String.valueOf(new DivideOperation(prevNumber, nextNumber).operate()));
+
                 if (i > 2) {
                     String prevArg = parserArgs[i - 2];
                     if ((arg.equals("+") || arg.equals("-")) && !(prevArg.equals("*") || prevArg.equals("/"))) {

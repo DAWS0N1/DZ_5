@@ -12,7 +12,7 @@ public class Main {
         final ArgsParser parser = new CorrectionParser(new MistakeParser());
         final CalculatorStringParser calculatorStringParser = new CalculatorStringParser(parser);
         final Calculator calculator = new Calculator(calculatorStringParser);
-        System.out.print(quest);
+        System.out.println(quest);
         calculator.calculate(quest);
     }
 }

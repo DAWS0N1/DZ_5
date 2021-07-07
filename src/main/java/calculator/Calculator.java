@@ -14,7 +14,12 @@ public class Calculator {
     }
 
     public void calculate(String calcArgs) {
-        final Operation operation = calculatorStringParser.parse(calcArgs);
-        System.out.println(START_RESULT_STRING + operation.operate());
+        try {
+            final Operation operation = calculatorStringParser.parse(calcArgs);
+            System.out.println(START_RESULT_STRING + operation.operate());
+        } catch (ArithmeticException e) {
+            System.err.print("Нельзя делить на ноль!");
+        }
+
     }
 }
