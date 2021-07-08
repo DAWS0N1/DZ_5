@@ -67,9 +67,10 @@ public class CalculatorStringParser {
                         secondArgs.add(arg);
                     }
                 } else {
-                    if (arg.equals("+") || arg.equals("-"))
+                    if (arg.equals("+") || arg.equals("-")) {
                         secondArgs.add(String.valueOf(prevNumber));
-                    secondArgs.add(arg);
+                        secondArgs.add(arg);
+                    }
                 }
             } else
                 throw new RuntimeException("Некорректный массив");
