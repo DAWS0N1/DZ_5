@@ -13,7 +13,7 @@ public class CalculatorStringParser {
         this.parser = parser;
     }
 
-    public Operation parse(String args) throws ArithmeticException{
+    public Operation parse(String args) throws ArithmeticException, NumberFormatException{
         final String[] parserArgs = parser.parse(args);
         List<String> secondArgs = new ArrayList<>();
         firstQueue(parserArgs, secondArgs);

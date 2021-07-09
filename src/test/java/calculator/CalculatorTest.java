@@ -4,7 +4,6 @@ import calculator.operation.*;
 import calculator.parser.ArgsParser;
 import calculator.parser.CalculatorStringParser;
 import calculator.parser.CorrectionParser;
-import calculator.parser.MistakeParser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ public class CalculatorTest {
 
     @Test
     public void divideOperationTestByZero() {
-        final ArgsParser parser = new CorrectionParser(new MistakeParser());
+        final ArgsParser parser = new CorrectionParser();
         final CalculatorStringParser calculatorStringParser = new CalculatorStringParser(parser);
         final Calculator calculator = new Calculator(calculatorStringParser);
         Assert.assertEquals("Получен неверный результат", -1, calculator.calculate("9 / 0"));
@@ -45,12 +44,21 @@ public class CalculatorTest {
 
     @Test
     public void testForCorrectCalculating() {
-        final ArgsParser parser = new CorrectionParser(new MistakeParser());
+        final ArgsParser parser = new CorrectionParser();
         final CalculatorStringParser calculatorStringParser = new CalculatorStringParser(parser);
         final Calculator calculator = new Calculator(calculatorStringParser);
         Number result = calculatorStringParser.parse("9 + 3 + 3 + 9 / 3 + 2 - 10 + 4 * 4 + 1 - 3 + 2.7 * 3").operate();
         Assert.assertEquals("Неправильно посчитано уравнение", 32.1d, result);
     }
 
-
+    @Test
+    public void testForCorrectInputSymbols() {
+        final ArgsParser parser = new CorrectionParser();
+        final CalculatorStringParser calculatorStringParser = new CalculatorStringParser(parser);
+        final Calculator calculator = new Calculator(calculatorStringParser);
+        Assert.assertEquals("Получен неверный результат", -1, calculator.calculate("F / 0"));
+        Assert.assertEquals("Получен неверный результат", -1, calculator.calculate("3 * ."));
+        Assert.assertEquals("Получен неверный результат", -1, calculator.calculate("3 - \""));
+        Assert.assertEquals("Получен неверный результат", 1, calculator.calculate("9 + 3"));
+    }
 }

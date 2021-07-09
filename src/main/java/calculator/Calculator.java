@@ -18,7 +18,10 @@ public class Calculator {
             final Operation operation = calculatorStringParser.parse(calcArgs);
             System.out.println(START_RESULT_STRING + operation.operate());
         } catch (ArithmeticException e) {
-            System.err.print("Нельзя делить на ноль!");
+            System.err.println("Нельзя делить на ноль!");
+            return -1;
+        } catch (NumberFormatException e) {
+            System.err.println("Вместо числа введен некорректный символ!");
             return -1;
         }
         return 1;
